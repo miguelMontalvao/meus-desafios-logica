@@ -98,15 +98,17 @@
     <script>
         // 1. Capturar o botão e o campo de saída (monitor)
         const btn = document.getElementById('btnCheck');
-        // Chamar variável monitor seguindo o padrão da variável btn usando o objeto (resultado-logica) 
+        const monitor = document.getElementById('resultado-logica');
+        
 
         // 2. Evento de Clique
         btn.addEventListener('click', () => {
             
             // 3. Capturar os valores dos inputs
             const temp = parseFloat(document.getElementById('tempInput').value);
-            // Chamar variável pres (pressão) seguindo o padrão
-            // Chamar variável hastes seguindo o padrão
+            const pres = parseInt(document.getElementById('presInput').value);
+            const hastes = parseInt(document.getElementById('hastesInput').value);
+            
             
             // Capturar o valor do checkbox (booleano)
             const manual = document.getElementById('manualSwitch').checked;
@@ -126,7 +128,23 @@
                 msg = "ERRO: SENSORES ILEGÍVEIS";
                 cor = "#ffff00";
             } 
-            //Continue a lógica aqui....
+            else if (!manual || pres < 100){
+                msg = "EVACUE IMEDIATAMENTE!";
+                cor = "#ff0000";
+            }
+            else if(temp > 700 && hastes == 0){
+                msg = "O núcleo está sem controle";
+                cor = "#ff0000";
+            }
+            else if(temp >= 400 && temp <=700){
+                msg = "Temperatura instável, permaneça atento!"
+                cor = "#ffff00";
+            }
+            else{
+                msg = "O sistema está funcionando corretamente";
+                cor = "#00ff00";
+            }
+            
 
             // 4. Exibir os resultados no monitor (DOM)
             monitor.innerText = msg;
